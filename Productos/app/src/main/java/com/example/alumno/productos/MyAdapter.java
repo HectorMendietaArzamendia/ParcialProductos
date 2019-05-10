@@ -38,8 +38,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Producto p = productos.get(position);
 
         holder.tvNombre.setText(p.getNombre());
-        holder.tvCantidad.setText(Integer.valueOf(p.getCantidad()).toString());
-        holder.tvPrecio.setText(Double.valueOf(p.getPrecio()).toString());
+        holder.tvCantidad.setText("Cantidad: " + Integer.valueOf(p.getCantidad()).toString());
+        holder.tvPrecio.setText("Precio unidad " + Double.valueOf(p.getPrecio()).toString());
     }
 
     @Override
