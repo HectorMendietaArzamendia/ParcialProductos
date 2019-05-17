@@ -22,7 +22,7 @@ public class MyTrhread extends Thread {
         String xml = null;
         HttpConection conn = new HttpConection("GET");
         try {
-            xml = conn.getStringData("http://192.168.2.166:8080/productos.xml");
+            xml = conn.getStringData("http://192.168.2.205:8080/a/Productos.xml"); //http://192.168.2.166:8080/productos.xml
             Message mensaje = new Message();
             mensaje.obj = xml;
             handler.sendMessage(mensaje);

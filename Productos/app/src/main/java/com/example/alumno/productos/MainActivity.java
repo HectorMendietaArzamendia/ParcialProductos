@@ -7,14 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Handler.Callback {
+public class MainActivity extends AppCompatActivity implements Handler.Callback, IListener {
 
     private Handler handler;
+    List<Producto> productos;
+    MyAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +28,26 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
     }
 
+    public void controlStock(int position, int btnId){
+        Producto p = productos.get(position);
+        if(btnId == R.id.btnMas) {
+            p.setCantidad(p.getCantidad() + 1);
+        }
+        if(btnId == R.id.btnMenos) {
+            if(p.getCantidad() != 0) p.setCantidad(p.getCantidad() - 1);
+        }
+        adapter.notifyItemChanged(position);
+    }
+
     @Override
     public boolean handleMessage(Message msg) {
         String xml = (String) msg.obj;
         XmlParser parser = new XmlParser();
-        List<Producto> productos = parser.obtenerProductos(xml);
+        productos = parser.obtenerProductos(xml);
         RecyclerView list = (RecyclerView) findViewById(R.id.list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
-        MyAdapter adapter = new MyAdapter(productos);
+        adapter = new MyAdapter(productos, this);
         list.setAdapter(adapter);
 
         return false;

@@ -1,13 +1,9 @@
 package com.example.alumno.productos;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -17,8 +13,11 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     List<Producto> productos;
-    public MyAdapter(List<Producto> productos){
+    private IListener main;
+
+    public MyAdapter(List<Producto> productos, IListener main){
         this.productos = productos;
+        this.main = main;
     }
 
     @Override
@@ -27,7 +26,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         View v = null;
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.producto_layout,parent,false);
 
-        MyViewHolder myViewHoleder = new MyViewHolder(v);
+        MyViewHolder myViewHoleder = new MyViewHolder(v, main);
 
 
         return myViewHoleder;
@@ -36,6 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Producto p = productos.get(position);
+        holder.setPosition(position);
 
         holder.tvNombre.setText(p.getNombre());
         holder.tvCantidad.setText("Cantidad: " + Integer.valueOf(p.getCantidad()).toString());

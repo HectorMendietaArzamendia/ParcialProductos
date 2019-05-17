@@ -41,15 +41,17 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
             android:src="@drawable/minus"
             android:id="@+id/btnMenos" />
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/plus"
             android:id="@+id/btnMas" />
 

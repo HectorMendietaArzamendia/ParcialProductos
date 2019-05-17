@@ -29,16 +29,20 @@ public class XmlParser {
                         p = new Producto();
                     }
                     if("id".equals(xmlPullParser.getName())){
-                         p.setId(new Integer(xmlPullParser.nextText()));
+                        if(p != null) p.setId(Integer.valueOf(xmlPullParser.nextText()));
                     }
                     if("nombre".equals(xmlPullParser.getName())){
-                        p.setNombre(xmlPullParser.nextText());
+                        if(p != null) p.setNombre(xmlPullParser.nextText());
                     }
                     if("precio".equals(xmlPullParser.getName())){
-                        p.setPrecio(new Double(xmlPullParser.nextText()));
+                        if(p != null) p.setPrecio(Double.valueOf(xmlPullParser.nextText()));
                     }
                     if("cantidad".equals(xmlPullParser.getName())){
-                        p.setCantidad(new Integer(xmlPullParser.nextText()));
+                        if(p != null) p.setCantidad(Integer.valueOf(xmlPullParser.nextText()));
+                    }
+                }
+                else if(event == XmlPullParser.END_TAG){
+                    if("producto".equals(xmlPullParser.getName())){
                         productos.add(p);
                     }
                 }
