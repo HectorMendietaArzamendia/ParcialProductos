@@ -1,5 +1,6 @@
 package com.example.alumno.productos;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +17,15 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     private Handler handler;
     List<Producto> productos;
     MyAdapter adapter;
+    String tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent i = getIntent();
+        tipo = i.getStringExtra("tipo");
 
         handler = new Handler(this);
         MyTrhread thread = new MyTrhread(handler);
@@ -29,14 +34,16 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback,
     }
 
     public void controlStock(int position, int btnId){
-        Producto p = productos.get(position);
-        if(btnId == R.id.btnMas) {
-            p.setCantidad(p.getCantidad() + 1);
+        if ("Admin".equals(tipo)){
+            Producto p = productos.get(position);
+            if(btnId == R.id.btnMas) {
+                p.setCantidad(p.getCantidad() + 1);
+            }
+            if(btnId == R.id.btnMenos) {
+                if(p.getCantidad() != 0) p.setCantidad(p.getCantidad() - 1);
+            }
+            adapter.notifyItemChanged(position);
         }
-        if(btnId == R.id.btnMenos) {
-            if(p.getCantidad() != 0) p.setCantidad(p.getCantidad() - 1);
-        }
-        adapter.notifyItemChanged(position);
     }
 
     @Override
